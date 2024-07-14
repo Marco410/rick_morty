@@ -21,3 +21,18 @@ class TxtStyle {
       fontWeight: FontWeight.bold,
       fontSize: 5.sp);
 }
+
+class ShadowStyle {
+  static BoxShadow generalShadow = BoxShadow(
+    color: ColorStyle.primaryColor.withOpacity(0.4),
+    blurRadius: 8,
+    spreadRadius: 2,
+    offset: Offset(0, 6),
+  );
+
+  static BoxShadow containerShadow = BoxShadow(
+      color: ColorStyle.primaryColor.withOpacity(0.4),
+      blurRadius: 4,
+      spreadRadius: 0,
+      offset: const Offset(0, 0));
+}
