@@ -12,8 +12,7 @@ final filterCharacterProvider =
   return filters;
 });
 
-final charactersProvider =
-    FutureProvider.autoDispose<List<Character>>((ref) async {
+final charactersProvider = FutureProvider.autoDispose<void>((ref) async {
   final filters = ref.watch(filterCharacterProvider);
   final currentPage = ref.read(currentPageProvider);
 
@@ -40,7 +39,6 @@ final charactersProvider =
                 name: filters.name,
                 page: currentPage,
               ));
-      return [];
     }
     ref.read(noMoreDataProvider.notifier).update((state) => false);
 
@@ -58,10 +56,8 @@ final charactersProvider =
       ref.read(characterListProvider.notifier).update((state) => list);
       ref.read(currentPageProvider.notifier).update((state) => currentPage + 1);
     }
-
-    return characterList.character;
   } else {
-    return [];
+    ref.read(characterListProvider.notifier).update((state) => []);
   }
 });
 
@@ -77,6 +73,47 @@ final noMoreDataProvider = StateProvider<bool>((ref) {
   return false;
 });
 
-final characterSelected = StateProvider<Character?>((ref) {
+final characterSelectedProvider = StateProvider<Character?>((ref) {
   return null;
+});
+
+final getOriginProvider =
+    FutureProvider.autoDispose.family<LocationModel?, String>((ref, url) async {
+  if (url == "") {
+    return null;
+  }
+
+  Uri uri = Uri.parse(url);
+  String lastPathSegment = uri.pathSegments.last;
+
+  String? resp = await BaseHttpService.baseGet(
+      url: "$getLocation/$lastPathSegment", params: {});
+
+  if (resp != null) {
+    LocationModel location = locationModelFromJson(resp);
+
+    return location;
+  } else {
+    return null;
+  }
+});
+
+final getLocationProvider =
+    FutureProvider.autoDispose.family<LocationModel?, String>((ref, url) async {
+  if (url == "") {
+    return null;
+  }
+  Uri uri = Uri.parse(url);
+  String lastPathSegment = uri.pathSegments.last;
+
+  String? resp = await BaseHttpService.baseGet(
+      url: "$getLocation/$lastPathSegment", params: {});
+
+  if (resp != null) {
+    LocationModel location = locationModelFromJson(resp);
+
+    return location;
+  } else {
+    return null;
+  }
 });
