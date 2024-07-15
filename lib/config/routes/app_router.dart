@@ -11,9 +11,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           builder: (context, state) => const SplashScreen(),
         ),
         GoRoute(
-          path: '/home',
-          name: 'home',
-          builder: (context, state) => const HomeMainScreen(),
-        ),
+            path: '/home',
+            name: 'home',
+            builder: (context, state) => const HomeMainScreen(),
+            routes: [
+              GoRoute(
+                path: 'character-detail',
+                name: 'character_detail',
+                builder: (context, state) => const CharacterDetail(),
+              ),
+            ]),
       ]);
 });
