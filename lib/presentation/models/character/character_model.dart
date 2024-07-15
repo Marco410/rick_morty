@@ -33,7 +33,7 @@ class CharacterModel {
 class Character {
   int id;
   String name;
-  String status;
+  Status status;
   String species;
   String type;
   String gender;
@@ -62,7 +62,7 @@ class Character {
   factory Character.fromJson(Map<String, dynamic> json) => Character(
         id: json["id"],
         name: json["name"],
-        status: json["status"],
+        status: statusValues.map[json["status"]]!,
         species: json["species"],
         type: json["type"],
         gender: json["gender"],
@@ -109,6 +109,11 @@ class Location {
         "url": url,
       };
 }
+
+enum Status { alive, dead, unknown }
+
+final statusValues = EnumValues(
+    {"Alive": Status.alive, "Dead": Status.dead, "unknown": Status.unknown});
 
 class Info {
   int count;

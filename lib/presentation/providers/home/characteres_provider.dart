@@ -32,8 +32,17 @@ final charactersProvider =
     final Map<String, dynamic> decode = json.decode(resp);
 
     if (decode['error'] != null) {
+      ref.read(noMoreDataProvider.notifier).update((state) => true);
+
+      ref
+          .read(filterCharacterProvider.notifier)
+          .update((state) => FilterCharacter(
+                name: filters.name,
+                page: currentPage,
+              ));
       return [];
     }
+    ref.read(noMoreDataProvider.notifier).update((state) => false);
 
     CharacterModel characterList = characterModelFromJson(resp);
     if (filters.page == 1 ||
@@ -62,4 +71,12 @@ final characterListProvider = StateProvider<List<Character>>((ref) {
 
 final currentPageProvider = StateProvider<int>((ref) {
   return 1;
+});
+
+final noMoreDataProvider = StateProvider<bool>((ref) {
+  return false;
+});
+
+final characterSelected = StateProvider<Character?>((ref) {
+  return null;
 });
