@@ -18,7 +18,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: 'character-detail',
                 name: 'character_detail',
-                builder: (context, state) => const HomeMainScreen(),
+                builder: (context, state) => const CharacterDetail(),
               ),
             ]),
       ]);
