@@ -3,6 +3,7 @@
 import 'package:animation_wrappers/animation_wrappers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rick_morty/config/theme/style.dart';
 import 'package:rick_morty/presentation/widgets/search_field_widget.dart';
 import 'package:sizer_pro/sizer.dart';
@@ -125,8 +126,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     controller: _scrollController,
                     itemBuilder: (BuildContext ctx, index) {
                       if (index < characteresList.length) {
-                        return CharacterWidget(
-                            character: characteresList[index]);
+                        return InkWell(
+                          onTap: () {
+                            ref
+                                .read(characterSelectedProvider.notifier)
+                                .update((state) => characteresList[index]);
+                            context.pushNamed("character_detail");
+                          },
+                          child: CharacterWidget(
+                              character: characteresList[index]),
+                        );
                       } else {
                         return (characteresList.length > 10)
                             ? (!noMoreData)

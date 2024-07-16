@@ -12,15 +12,17 @@ import '../../../models/models.dart';
 import '../../../providers/home/characteres_provider.dart';
 import '../../../widgets/widgets.dart';
 
-class LastFiveScreen extends ConsumerStatefulWidget {
-  const LastFiveScreen({super.key});
+class LastCharacterScreen extends ConsumerStatefulWidget {
+  const LastCharacterScreen({super.key});
 
   @override
-  ConsumerState<LastFiveScreen> createState() => _LastFiveScreenState();
+  ConsumerState<LastCharacterScreen> createState() =>
+      _LastCharacterScreenState();
 }
 
-class _LastFiveScreenState extends ConsumerState<LastFiveScreen> {
+class _LastCharacterScreenState extends ConsumerState<LastCharacterScreen> {
   List<Character> listCharacters = [];
+  Character? character;
   @override
   void initState() {
     super.initState();
@@ -31,7 +33,6 @@ class _LastFiveScreenState extends ConsumerState<LastFiveScreen> {
     final characters = await CharacterController.getCharactersViews();
 
     setState(() {
-      listCharacters = [];
       listCharacters.addAll(characters.map((e) => Character(
             id: e["character_id"],
             name: e["name"],
@@ -43,6 +44,8 @@ class _LastFiveScreenState extends ConsumerState<LastFiveScreen> {
             origin: Location(name: e['originName'], url: e['originUrl']),
             location: Location(name: e['locationName'], url: e['locationUrl']),
           )));
+
+      character = listCharacters.first;
     });
   }
 
@@ -55,33 +58,29 @@ class _LastFiveScreenState extends ConsumerState<LastFiveScreen> {
           Padding(
             padding: const EdgeInsets.all(15),
             child: Text(
-              "Vistos recientemente",
-              style: TxtStyle.headerStyle,
+              "Último personaje visto.",
+              style: TxtStyle.headerStyle.copyWith(fontSize: 9.sp),
             ),
           ),
-          Expanded(
-            flex: 10,
-            child: (listCharacters.isNotEmpty)
-                ? ListView.builder(
-                    padding: const EdgeInsets.only(
-                        top: 10, bottom: 10, left: 10, right: 10),
-                    physics: const BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: listCharacters.length,
-                    itemBuilder: (BuildContext ctx, index) {
-                      return InkWell(
-                          onTap: () async {
-                            ref
-                                .read(characterSelectedProvider.notifier)
-                                .update((state) => listCharacters[index]);
-                            await context.pushNamed("character_detail");
-
-                            getLastViews();
-                          },
-                          child: CharacterWidget(
-                              character: listCharacters[index]));
-                    })
-                : Padding(
+          (listCharacters.isNotEmpty && character != null)
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: InkWell(
+                    onTap: () {
+                      ref
+                          .read(characterSelectedProvider.notifier)
+                          .update((state) => character);
+                      context.pushNamed("character_detail");
+                    },
+                    child: CharacterWidget(
+                      character: character!,
+                      vertical: true,
+                    ),
+                  ),
+                )
+              : Expanded(
+                  flex: 10,
+                  child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
                       child: Column(
@@ -103,7 +102,7 @@ class _LastFiveScreenState extends ConsumerState<LastFiveScreen> {
                       ),
                     ),
                   ),
-          ),
+                ),
         ],
       ),
     );
