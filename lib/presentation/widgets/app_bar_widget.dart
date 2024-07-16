@@ -36,6 +36,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
               ),
             )
           : const SizedBox(),
+      centerTitle: true,
       title: SvgPicture.asset("assets/logo.svg", height: 12.sp),
     );
   }

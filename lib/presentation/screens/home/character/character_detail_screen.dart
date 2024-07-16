@@ -111,31 +111,45 @@ class _CharacterDetailState extends ConsumerState<CharacterDetail> {
                       ),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      BoxInfoWidget(
-                        title: "Estado:",
-                        text: character.status.name,
-                      ),
-                      BoxInfoWidget(
-                        title: "Especie:",
-                        text: character.species,
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: BoxInfoWidget(
+                            title: "Estado:",
+                            text: character.status.name,
+                          ),
+                        ),
+                        Expanded(
+                          child: BoxInfoWidget(
+                            title: "Especie:",
+                            text: character.species,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      BoxInfoWidget(
-                        title: "Tipo:",
-                        text: character.species,
-                      ),
-                      BoxInfoWidget(
-                        title: "Género:",
-                        text: character.gender,
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: BoxInfoWidget(
+                            title: "Tipo:",
+                            text: character.species,
+                          ),
+                        ),
+                        Expanded(
+                          child: BoxInfoWidget(
+                            title: "Género:",
+                            text: character.gender,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   FadedScaleAnimation(
                     child: Container(
@@ -150,42 +164,51 @@ class _CharacterDetailState extends ConsumerState<CharacterDetail> {
                       ),
                     ),
                   ),
-                  origin.when(
-                    data: (data) {
-                      if (data != null) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            BoxInfoWidget(
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: origin.when(
+                      data: (data) {
+                        if (data != null) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: BoxInfoWidget(
+                                  title: "Nombre:",
+                                  text: character.origin.name,
+                                  vertical: true,
+                                ),
+                              ),
+                              Expanded(
+                                child: BoxInfoWidget(
+                                  title: "Tipo:",
+                                  text: data.type,
+                                  vertical: true,
+                                ),
+                              ),
+                              Expanded(
+                                child: BoxInfoWidget(
+                                  title: "Dimension:",
+                                  text: data.dimension,
+                                  vertical: true,
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return Center(
+                            child: BoxInfoWidget(
                               title: "Nombre:",
                               text: character.origin.name,
                               vertical: true,
                             ),
-                            BoxInfoWidget(
-                              title: "Tipo:",
-                              text: data.type,
-                              vertical: true,
-                            ),
-                            BoxInfoWidget(
-                              title: "Dimension:",
-                              text: data.dimension,
-                              vertical: true,
-                            ),
-                          ],
-                        );
-                      } else {
-                        return Center(
-                          child: BoxInfoWidget(
-                            title: "Nombre:",
-                            text: character.origin.name,
-                            vertical: true,
-                          ),
-                        );
-                      }
-                    },
-                    error: (error, stackTrace) =>
-                        LoadingStandardWidget.loadingErrorWidget(),
-                    loading: () => LoadingStandardWidget.loadingWidget(),
+                          );
+                        }
+                      },
+                      error: (error, stackTrace) =>
+                          LoadingStandardWidget.loadingErrorWidget(),
+                      loading: () => LoadingStandardWidget.loadingWidget(),
+                    ),
                   ),
                   FadedScaleAnimation(
                     child: Container(
@@ -200,42 +223,51 @@ class _CharacterDetailState extends ConsumerState<CharacterDetail> {
                       ),
                     ),
                   ),
-                  location.when(
-                    data: (data) {
-                      if (data != null) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            BoxInfoWidget(
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: location.when(
+                      data: (data) {
+                        if (data != null) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: BoxInfoWidget(
+                                  title: "Nombre:",
+                                  text: character.location.name,
+                                  vertical: true,
+                                ),
+                              ),
+                              Expanded(
+                                child: BoxInfoWidget(
+                                  title: "Tipo:",
+                                  text: data.type,
+                                  vertical: true,
+                                ),
+                              ),
+                              Expanded(
+                                child: BoxInfoWidget(
+                                  title: "Dimension:",
+                                  text: data.dimension,
+                                  vertical: true,
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return Center(
+                            child: BoxInfoWidget(
                               title: "Nombre:",
                               text: character.location.name,
                               vertical: true,
                             ),
-                            BoxInfoWidget(
-                              title: "Tipo:",
-                              text: data.type,
-                              vertical: true,
-                            ),
-                            BoxInfoWidget(
-                              title: "Dimension:",
-                              text: data.dimension,
-                              vertical: true,
-                            ),
-                          ],
-                        );
-                      } else {
-                        return Center(
-                          child: BoxInfoWidget(
-                            title: "Nombre:",
-                            text: character.location.name,
-                            vertical: true,
-                          ),
-                        );
-                      }
-                    },
-                    error: (error, stackTrace) =>
-                        LoadingStandardWidget.loadingErrorWidget(),
-                    loading: () => LoadingStandardWidget.loadingWidget(),
+                          );
+                        }
+                      },
+                      error: (error, stackTrace) =>
+                          LoadingStandardWidget.loadingErrorWidget(),
+                      loading: () => LoadingStandardWidget.loadingWidget(),
+                    ),
                   ),
                   const SizedBox(
                     height: 50,
