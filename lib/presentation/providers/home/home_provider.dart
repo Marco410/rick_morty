@@ -7,6 +7,7 @@ final currentIndexPage = StateProvider<int>((ref) {
   return 1;
 });
 
+/// Provider to change page in navigation bottom bar
 final homeProvider = FutureProvider<Widget>((ref) async {
   final page = ref.watch(currentIndexPage);
   switch (page) {
