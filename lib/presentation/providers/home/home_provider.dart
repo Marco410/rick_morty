@@ -12,6 +12,10 @@ final homeProvider = FutureProvider<Widget>((ref) async {
   switch (page) {
     case 0:
       return const HomeScreen();
+    case 1:
+      return const HomeScreen();
+    case 2:
+      return const LastFiveScreen();
     default:
       return const HomeScreen();
   }

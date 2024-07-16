@@ -117,3 +117,17 @@ final getLocationProvider =
     return null;
   }
 });
+
+final getCharacterProvider =
+    FutureProvider.autoDispose.family<void, String>((ref, id) async {
+  String? resp = await BaseHttpService.baseGet(url: "$getCharacters/$id");
+
+  if (resp != null) {
+    final Map<String, dynamic> decode = json.decode(resp);
+
+    if (decode['error'] != null) {
+      final Character character = Character.fromJson(decode);
+      ref.read(characterSelectedProvider.notifier).update((state) => character);
+    }
+  }
+});

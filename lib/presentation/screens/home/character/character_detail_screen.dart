@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rick_morty/config/theme/style.dart';
+import 'package:rick_morty/presentation/controllers/character_controller.dart';
 import 'package:sizer_pro/sizer.dart';
 
 import '../../../models/models.dart';
@@ -10,19 +11,36 @@ import '../../../providers/home/characteres_provider.dart';
 import '../../../widgets/loader_image_widget.dart';
 import '../../../widgets/widgets.dart';
 
-class CharacterDetail extends ConsumerWidget {
+class CharacterDetail extends ConsumerStatefulWidget {
   const CharacterDetail({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<CharacterDetail> createState() => _CharacterDetailState();
+}
+
+class _CharacterDetailState extends ConsumerState<CharacterDetail> {
+  @override
+  void initState() {
+    final character = ref.read(characterSelectedProvider);
+
+    if (character != null) {
+      CharacterController.insertViewCharacter(character);
+    }
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     late AsyncValue<LocationModel?> location;
     late AsyncValue<LocationModel?> origin;
 
-    final character = ref.read(characterSelectedProvider);
+    var character = ref.read(characterSelectedProvider);
     if (character != null) {
       origin = ref.watch(getOriginProvider(character.origin.url));
       location = ref.watch(getLocationProvider(character.location.url));
     }
+
     return Scaffold(
       backgroundColor: ColorStyle.blackSecondaryColor,
       appBar: const AppBarWidget(
@@ -88,7 +106,7 @@ class CharacterDetail extends ConsumerWidget {
                       child: Text(
                         character.name,
                         style: TxtStyle.headerStyle.copyWith(
-                            color: ColorStyle.secondaryColor, fontSize: 10.sp),
+                            color: ColorStyle.secondaryColor, fontSize: 11.sp),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -268,7 +286,7 @@ class BoxInfoWidget extends StatelessWidget {
                     Text(
                       text,
                       style: TxtStyle.labelStyle.copyWith(
-                          color: ColorStyle.primaryColor, fontSize: 5.5.sp),
+                          color: ColorStyle.primaryColor, fontSize: 5.6.sp),
                     )
                   ],
                 )
@@ -287,7 +305,7 @@ class BoxInfoWidget extends StatelessWidget {
                       text,
                       textAlign: TextAlign.center,
                       style: TxtStyle.labelStyle.copyWith(
-                          color: ColorStyle.primaryColor, fontSize: 5.5.sp),
+                          color: ColorStyle.secondaryColor, fontSize: 5.6.sp),
                     )
                   ],
                 )),
