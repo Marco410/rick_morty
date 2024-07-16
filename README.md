@@ -39,3 +39,6 @@ Sigue los siguientes pasos para correr la aplicación:
 1. Clona este repositorio, accede a la carpeta raiz
 2. Correr `flutter pub get` luego `flutter run` y seleccione un dispositivo ios o android.
 3. Ya tendrás la aplicación corriendo en tu dispositivo.
+
+Más información para instalar Flutter
+https://flutterxperts.com/run-flutter-app-on-android-device-ios-device/
