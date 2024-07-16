@@ -40,9 +40,9 @@ class Character {
   Location origin;
   Location location;
   String image;
-  List<String> episode;
-  String url;
-  DateTime created;
+  List<String>? episode;
+  String? url;
+  DateTime? created;
 
   Character({
     required this.id,
@@ -54,9 +54,9 @@ class Character {
     required this.origin,
     required this.location,
     required this.image,
-    required this.episode,
-    required this.url,
-    required this.created,
+    this.episode,
+    this.url,
+    this.created,
   });
 
   factory Character.fromJson(Map<String, dynamic> json) => Character(
@@ -84,9 +84,9 @@ class Character {
         "origin": origin.toJson(),
         "location": location.toJson(),
         "image": image,
-        "episode": List<dynamic>.from(episode.map((x) => x)),
+        "episode": List<dynamic>.from(episode!.map((x) => x)),
         "url": url,
-        "created": created.toIso8601String(),
+        "created": created?.toIso8601String(),
       };
 }
 
@@ -112,8 +112,13 @@ class Location {
 
 enum Status { alive, dead, unknown }
 
-final statusValues = EnumValues(
-    {"Alive": Status.alive, "Dead": Status.dead, "unknown": Status.unknown});
+final statusValues = EnumValues({
+  "Alive": Status.alive,
+  "Dead": Status.dead,
+  "unknown": Status.unknown,
+  'alive': Status.alive,
+  'dead': Status.dead
+});
 
 class Info {
   int count;
