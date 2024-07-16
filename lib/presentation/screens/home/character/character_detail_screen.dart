@@ -263,7 +263,7 @@ class BoxInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return FadeAnimation(
       child: Container(
-          width: (vertical) ? 120 : 150,
+          width: (vertical) ? 120 : 180,
           height: (vertical) ? 150 : 90,
           margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 5),
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
